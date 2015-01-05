@@ -20,6 +20,7 @@ gem 'shellex'   #Safe Shell Execution
 #ORM
 gem 'data_mapper'
 gem 'dm-sqlite-adapter'
+gem 'dm-postgres-adapter'
 
 #Flash Notice
 gem 'rack-flash3'
