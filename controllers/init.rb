@@ -1,7 +1,7 @@
 # encoding: utf-8
-require_relative 'article'
-require_relative 'csrf'
-require_relative 'user'
-require_relative 'flash'
-require_relative 'auth'
-require_relative 'feed'
+## Locate & Load the Controllers
+
+Dir.foreach("#{Dir.pwd}/controllers") do |item|
+  next if item == '.' or item == '..' or item == 'init.rb'
+  require_relative item
+end

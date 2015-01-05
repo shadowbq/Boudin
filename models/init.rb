@@ -3,20 +3,22 @@
 # If you want the logs displayed you have to do this before the call to setup
 DataMapper::Logger.new($stdout, :debug)
 
+puts "Boudin.environment:#{Boudin.environment}"
 if Boudin.environment == :production
   # A Postgres connection:
-  DataMapper.setup(:default, 'postgres://user:password@hostname/database')
+  DataMapper.setup(:default, settings.db_connection)
 else  
   # This is the database location
-  puts "Boudin.environment:#{Boudin.environment}"
   DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/db/development.db")
 end
 
 
 ## Locate & Load the Models
 
-require_relative 'article'
-require_relative 'user'
+Dir.foreach("#{Dir.pwd}/models") do |item|
+  next if item == '.' or item == '..' or item == 'init.rb'
+  require_relative item
+end
 
 
 # This tries to make the schema match the model. It will CREATE new tables, and add columns to existing tables. 

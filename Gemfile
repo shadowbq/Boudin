@@ -2,6 +2,7 @@ source "https://rubygems.org"
 
 #Sinatra
 gem 'sinatra', '1.3.1'
+gem 'sinatra-contrib', '1.3.2'
 gem 'haml', '3.1.4'
 
 # Running

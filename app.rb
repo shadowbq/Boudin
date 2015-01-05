@@ -1,5 +1,8 @@
 class Boudin < Sinatra::Base
   
+  register Sinatra::ConfigFile
+  config_file 'config/config.yml'
+   
   configure do
     set :method_override, true
     set :environment, :development
