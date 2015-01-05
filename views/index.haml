@@ -1,0 +1,83 @@
+!!!
+%html{:lang => "en"}
+  %head
+    %meta{:charset => "utf-8"}/
+    %title Boudin Sausage
+    %meta{:content => "", :name => "description"}/
+    %meta{:content => "", :name => "author"}/
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
+    / Le HTML5 shim, for IE6-8 support of HTML elements
+    /[if lt IE 9]
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    / Le styles
+    %link{:href => "/css/bootstrap.css", :rel => "stylesheet"}/
+    :css
+      body {
+        padding-top: 60px;
+      }
+        / Le fav and touch icons
+    %link{:href => "images/favicon.ico", :rel => "shortcut icon"}/
+    %link{:href => "images/apple-touch-icon.png", :rel => "apple-touch-icon"}/
+    %link{:href => "images/apple-touch-icon-72x72.png", :rel => "apple-touch-icon", :sizes => "72x72"}/
+    %link{:href => "images/apple-touch-icon-114x114.png", :rel => "apple-touch-icon", :sizes => "114x114"}/
+  %body
+    .navbar.navbar-fixed-top
+      .navbar-inner
+        .container-fluid
+          %a.btn.btn-navbar{"data-target" => ".nav-collapse", "data-toggle" => "collapse"}
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          %a.brand{:href => "#"} Boudin Sausage
+          .nav-collapse
+            %ul.nav
+              %li.active
+                %a{:href => "#"} Home
+              %li
+                %a{:href => "/feeds"} Feeds
+            -if env['warden'].authenticated?
+              %p.navbar-text.pull-right
+                Logged in as
+                %a{:href => "#"}= env['warden'].user.username
+                |
+                %a{:href => "/auth/logout"} Logout
+            -else
+              %p.navbar-text.pull-right
+                %a{:href => "/auth/login"} Login
+
+    .container-fluid
+      .row-fluid
+      - if flash[:success]
+        .alert.alert-success
+          = flash[:success]
+          %button.close{:type => "button", :'data-dismiss' => "alert" } &times; 
+      - if flash[:error]
+        .alert.alert-error
+          = flash[:error]
+          %button.close{:type => "button", :'data-dismiss' => "alert" } &times;  
+      - if flash[:something]
+        .alert
+          = flash[:something]
+          %button.close{:type => "button", :'data-dismiss' => "alert" } &times;  	
+      .row-fluid
+        .span12
+          .hero-unit
+            %h1 Boudin
+            %p Pulled Pork Sandwich Web Access API
+            %img{:src => "img/TheSpeckledPalate_BoudinEggBreakfastSandwiches_005_small.jpg"}
+          .row-fluid
+            %ul.nav
+              %li.active
+                %a{:href => "/"} Home
+              %li
+                %a{:href => "/csrf_secured"} CSRF Secured Form
+              %li
+                %a{:href => "/articles"} ORM Articles
+              %li
+                %a{:href => "/protected"} Warden Protected Page
+    /
+      Le javascript
+      \==================================================
+    / Placed at the end of the document so the pages load faster
+    %script{:src => "/js/jquery-1.10.2.min.js"}
+    %script{:src => "/js/bootstrap.js"}
