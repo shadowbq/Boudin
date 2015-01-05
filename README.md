@@ -2,7 +2,7 @@
 <img src="http://www.thespeckledpalate.com/wp-content/uploads/2014/09/12-1666-post/TheSpeckledPalate_BoudinEggBreakfastSandwiches_005_small.jpg">
 </p>
 
-Boudin
+Boudin \bü-ˈdan, -ˈdaⁿ\
 ==============
 
 This is a webapp and webapi that fronts the CIFs database format. It also provides a tunning aspect that allows other services to adjust confidence levels.
