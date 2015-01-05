@@ -1,6 +1,7 @@
 class Apikey
   include DataMapper::Resource
-
+  is :read_only
+  
   storage_names[:default] = 'apikeys'
   
   property :id, Serial, key: true

@@ -16,6 +16,7 @@ require 'rack/csrf'
 require 'rack/protection'
 
 require 'data_mapper'
+require 'dm-is-read_only'
 require 'bcrypt'
 
 require 'rack-flash'

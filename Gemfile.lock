@@ -30,6 +30,8 @@ GEM
     dm-do-adapter (1.2.0)
       data_objects (~> 0.10.6)
       dm-core (~> 1.2.0)
+    dm-is-read_only (0.3.0)
+      dm-core (~> 1.2)
     dm-migrations (1.2.0)
       dm-core (~> 1.2.0)
     dm-postgres-adapter (1.2.0)
@@ -124,6 +126,7 @@ DEPENDENCIES
   alpaca
   bcrypt-ruby
   data_mapper
+  dm-is-read_only
   dm-postgres-adapter
   dm-sqlite-adapter
   haml (= 3.1.4)
