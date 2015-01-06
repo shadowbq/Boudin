@@ -2,13 +2,14 @@ class Boudin < Sinatra::Base
   
   register Sinatra::ConfigFile
   register Sinatra::RespondWith
+  register Sinatra::Namespace
   
   configure do
     config_file 'config/config.yml'
     set :method_override, true
     #set :environment, :production
   end
-
+    
   require_relative 'models/init'
   
   

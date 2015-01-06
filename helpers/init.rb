@@ -4,3 +4,4 @@ Boudin.helpers Csrf
 
 require_relative 'auth'
 Boudin.helpers Auth
+
