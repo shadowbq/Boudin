@@ -7,6 +7,7 @@ Bundler.require
 
 require 'sinatra'
 require 'sinatra/config_file'
+require 'sinatra/respond_with'
 
 require 'haml'
 require 'erb'

@@ -1,11 +1,12 @@
 class Boudin < Sinatra::Base
   
   register Sinatra::ConfigFile
-  config_file 'config/config.yml'
-   
+  register Sinatra::RespondWith
+  
   configure do
+    config_file 'config/config.yml'
     set :method_override, true
-    set :environment, :development
+    #set :environment, :production
   end
 
   require_relative 'models/init'
@@ -60,7 +61,15 @@ class Boudin < Sinatra::Base
       
     end
   end
-    
+  
+  ## Hack to fix the extension to accept json params
+  before /.*/ do
+    if request.url.match(/.json$/)
+    request.accept.unshift('application/json')
+    request.path_info = request.path_info.gsub(/.json$/,'')
+    end
+  end
+  
   get '/' do
     haml :index
   end

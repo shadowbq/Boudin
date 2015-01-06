@@ -3,10 +3,9 @@
 # If you want the logs displayed you have to do this before the call to setup
 DataMapper::Logger.new($stdout, :debug)
 
-puts "Boudin.environment:#{Boudin.environment}"
 if Boudin.environment == :production
   # A Postgres connection:
-  DataMapper.setup(:default, settings.db_connection)
+  DataMapper.setup(:default, Boudin.settings.dbconnection)
 else  
   # This is the database location
   DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/db/development.db")

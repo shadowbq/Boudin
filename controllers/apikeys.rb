@@ -1,12 +1,13 @@
 # encoding: utf-8
 class Boudin < Sinatra::Base
   
-  get '/apikeys' do
-    # Create a default User
-
+  # Show all APIKeys
+  get '/apikeys' , :provides => [:html, :json] do
     @apikeys = Apikey.all
-    erb :'apikeys/index'
-
+    respond_to do |format|
+		format.html { erb :'apikeys/index' }
+		format.json { @apikeys.to_json }
+	end
   end
     
 end
