@@ -2,7 +2,7 @@ class Infscan
   include DataMapper::Resource
   is :read_only
   
-  storage_names[:default] = 'infscan'
+  storage_names[:default] = 'infrastructure_scan'
   
   property :id, Serial, key: true
   property :uuid, UUID
