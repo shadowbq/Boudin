@@ -31,10 +31,4 @@ class Boudin < Sinatra::Base
     redirect '/auth/login'
   end
 
-  get '/protected' do
-    env['warden'].authenticate!
-    @current_user = env['warden'].user
-    erb :'protected/index'
-  end
-  
 end  
