@@ -3,6 +3,8 @@ class Boudin < Sinatra::Base
   register Sinatra::ConfigFile
   register Sinatra::RespondWith
   register Sinatra::Namespace
+
+  helpers Sinatra::Param
   
   configure do
     config_file 'config/config.yml'

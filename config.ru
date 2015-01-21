@@ -9,7 +9,7 @@ require 'sinatra'
 require 'sinatra/config_file'
 require 'sinatra/respond_with'
 require 'sinatra/namespace'
-
+require 'sinatra/param'
 
 require 'haml'
 require 'erb'
@@ -19,12 +19,13 @@ require 'rack/csrf'
 require 'rack/protection'
 
 require 'data_mapper'
-require 'dm-is-read_only'
 require 'bcrypt'
 
 require 'rack-flash'
 
 require 'pry'
+
+require 'threshold'
 
 use Rack::Alpaca
 

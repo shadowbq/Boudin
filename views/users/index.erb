@@ -2,5 +2,10 @@
 
 <% @users.each do |user| %>
         <h3><%= user.username %></h3>
+        <ul>
+        <li><%= user.expire %></li>
+        <li><%= user.description %></li>
+        <li><%= user.email %></li>
+        </lu>
 <% end %>
 

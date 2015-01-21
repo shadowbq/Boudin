@@ -38,7 +38,7 @@
             -if env['warden'].authenticated?
               %p.navbar-text.pull-right
                 Logged in as
-                %a{:href => "#"}= env['warden'].user.username
+                %a{:href => "/users/" + env['warden'].user.id.to_s }= env['warden'].user.username
                 |
                 %a{:href => "/auth/logout"} Logout
             -else

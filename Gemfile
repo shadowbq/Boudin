@@ -22,7 +22,6 @@ gem 'shellex'   #Safe Shell Execution
 gem 'data_mapper'
 gem 'dm-sqlite-adapter'
 gem 'dm-postgres-adapter'
-gem 'dm-is-read_only'
 
 #Flash Notice
 gem 'rack-flash3'
@@ -30,6 +29,9 @@ gem 'rack-flash3'
 #debugging
 gem 'pry'
 
+# Core Gem
+gem 'threshold', '~> 0.0.3'
+gem 'sinatra-param', '~> 1.3.0'
 group :test do
   gem 'rake', '0.9.2.2'
   gem 'rack-test', '0.6.1'

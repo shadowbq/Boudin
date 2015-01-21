@@ -2,7 +2,8 @@ require File.dirname(__FILE__) + '/spec_helper'
 
 describe 'Application' do
   def app
-    Sinatra::Application
+    #Sinatra::Application
+    Boudin.run
   end
   
   describe 'index' do

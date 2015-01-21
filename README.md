@@ -5,7 +5,9 @@
 Boudin \bü-ˈdan, -ˈdaⁿ\
 ==============
 
-This is a webapp and webapi that fronts the CIFs database format. It also provides a tunning aspect that allows other services to adjust confidence levels.
+This is a webapp and webapi that fronts the pulled pork sandwich application. It also provides a tunning aspect that allows other services to adjust confidence levels.
+
+This sinatra app relies on the [threshold](https://github.com/shadowbq/snort-thresholds) gem for ORM to the Snort Threshold configurations.
 
 ## Installation
 
