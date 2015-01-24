@@ -30,7 +30,7 @@ gem 'rack-flash3'
 gem 'pry'
 
 # Core Gem
-gem 'threshold', '~> 0.0.3'
+gem 'threshold', '~> 0.2.0'
 gem 'sinatra-param', '~> 1.3.0'
 group :test do
   gem 'rake', '0.9.2.2'
