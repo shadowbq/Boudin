@@ -3,7 +3,7 @@ class Boudin < Sinatra::Base
   
   get '/thresholds' do
     respond_with :index do |f|
-      f.txt { t_index.sort.to_s }
+      f.txt { grab_threshold.sort.to_s }
     end
   end
 
@@ -12,11 +12,8 @@ class Boudin < Sinatra::Base
     param :gid,           Integer, required: true
     param :sid,           Integer, required: true
 
-    tempThreshold = Threshold::Thresholds.new
-    t_index.each do |t| 
-      if ((t.gid == params[:gid]) and (t.sid == params[:sid]))
-        tempThreshold << t
-      end  
+    tempThreshold = grab_threshold.select do |t| 
+      (t.gid == params[:gid]) and (t.sid == params[:sid])
     end
 
     respond_with :index do |f|
@@ -26,7 +23,7 @@ class Boudin < Sinatra::Base
 
   get '/thresholds/suppressions' do
     respond_with :index do |f|
-      f.txt { t_index("suppressions").sort.to_s }
+      f.txt { grab_threshold.suppressions.sort.to_s }
     end
   end
 
@@ -37,57 +34,60 @@ class Boudin < Sinatra::Base
     param :track_by,      String, in: ["src", "dst"]
     param :ip,            String #, format: '(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]).){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([1-9]|[1-2][0-9]|3[0-2]))?'
 
-    tempThreshold = Threshold::Thresholds.new
-    t_index("suppressions").each do |t| 
-      if ((t.gid == params[:gid]) and (t.sid == params[:sid]))
-          if params[:track_by] == t.track_by || params[:track_by].nil?
-            if params[:ip] == t.ip || params[:ip].nil?
-              tempThreshold << t
-            end  
-          end  
-      end  
+    needle = Threshold::Suppression.new
+    needle.gid= params[:gid]
+    needle.sid= params[:sid]
+    needle.track_by= params[:track_by]
+    needle.ip= params[:ip]
+
+    # we require explicit maybe we should have hay.includes?(needle)
+    result = grab_threshold.suppressions do |hay| 
+      hay.include?(needle)
     end
 
+=begin
+    if params[:track_by].nil? && params[:ip].nil?
+       result = grab_threshold.suppressions do |t| 
+          ((t.gid == params[:gid]) && (t.sid == params[:sid]))
+       end
+    elsif params[:ip].nil?
+       result = grab_threshold.suppressions do |t| 
+          ((t.gid == params[:gid]) && (t.sid == params[:sid]) && (t.track_by == params[:track_by]))
+       end   
+    elsif params[:track_by].nil?  
+       result = grab_threshold.suppressions do |t| 
+          ((t.gid == params[:gid]) && (t.sid == params[:sid]) && (t.ip == params[:ip]))
+       end   
+    else
+        result = grab_threshold.suppressions do |t| 
+          ((t.gid == params[:gid]) && (t.sid == params[:sid]) && (t.track_by == params[:track_by]) && (t.ip == params[:ip]))
+        end  
+    end  
+=end    
+
     respond_with :index do |f|
-      f.txt { tempThreshold.to_s }
+      f.txt { result.to_s }
     end
   end
 
   get '/thresholds/eventfilters' do
     respond_with :index do |f|
-      f.txt { t_index("eventfilters").sort.to_s }
+      f.txt { grab_threshold.event_filters.sort.to_s }
     end
   end
 
   get '/thresholds/ratefilters' do
     respond_with :index do |f|
-      f.txt { t_index("ratefilters").sort.to_s }
+      f.txt { grab_threshold.rate_filters.sort.to_s }
     end
   end
 
-  
-  #get '/thresholds/suppressions' do
-  #  erb :'thresholds/suppressions/index'
-  #end
 
-  def t_index(filter="")
-    tempThreshold = Threshold::Thresholds.new
-    a = Threshold::Thresholds.new
-    a.file = '/tmp/threshold.conf'
-    a.loadfile
-    if filter == ""
-      return a
-    elsif filter == "suppressions"
-      a.each{|t| tempThreshold << t if t.class.to_s == "Threshold::Suppression" }
-      return tempThreshold
-    elsif filter == "eventfilters"
-      a.each{|t| tempThreshold << t if t.class.to_s == "Threshold::EventFilter" }
-      return tempThreshold
-    elsif filter == "ratefilters"
-      a.each{|t| tempThreshold << t if t.class.to_s == "Threshold::RateFilter" }
-      return tempThreshold
-    end
-
+  def grab_threshold
+    threshold = Threshold::Thresholds.new
+    threshold.file = '/tmp/threshold.conf'
+    threshold.loadfile
+    return threshold
   end
 
   
